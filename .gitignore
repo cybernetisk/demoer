@@ -20,3 +20,6 @@
 # keep the gitignore files
 !.gitignore
 
+# Ignore swap files from e.g. vim
+*.swp
+
