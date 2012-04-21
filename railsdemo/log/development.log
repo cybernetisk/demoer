@@ -1,0 +1,31 @@
+  [1m[36m (0.2ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (5.1ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (23.6ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.2ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateShifts (20120421204027)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "shifts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "shift_type_id" integer NOT NULL, "user_id" integer, "certification_id" integer, "start" datetime NOT NULL, "end" datetime NOT NULL, "training" boolean NOT NULL, "comment" text NOT NULL, "leasing" boolean NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120421204027')
+  [1m[36m (7.5ms)[0m  [1mcommit transaction[0m
+Migrating to CreateShiftTypes (20120421204109)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "shift_types" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255) NOT NULL, "description" text NOT NULL, "location" varchar(255) NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120421204109')
+  [1m[36m (8.3ms)[0m  [1mcommit transaction[0m
+Migrating to CreateUsers (20120421204153)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (3.7ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255) NOT NULL, "last_login" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120421204153')
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+Migrating to CreateCertifications (20120421204233)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.5ms)[0m  [1mCREATE TABLE "certifications" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "shift_type_id" integer NOT NULL, "user_id" integer NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120421204233')
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.4ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("certifications")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("shift_types")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("shifts")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("users")[0m

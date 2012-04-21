@@ -1,4 +1,4 @@
 class Certification < ActiveRecord::Base
-  belongs_to :shift_type, dependent: :nullify
-  belongs_to :user, dependent: :nullify
+  belongs_to :shift_type
+  belongs_to :user
 end
