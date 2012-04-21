@@ -26,8 +26,8 @@ class AppSchema extends CakeSchema {
 	public $shifts = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'shift_type_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
-		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
-		'verified_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'user_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'verified_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'training' => array('type' => 'boolean', 'null' => false, 'default' => NULL),
 		'comment' => array('type' => 'text', 'null' => false, 'default' => NULL, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'leasing' => array('type' => 'boolean', 'null' => false, 'default' => NULL),
@@ -39,7 +39,6 @@ class AppSchema extends CakeSchema {
 	public $users = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'username' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'password' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'lastlogin' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),

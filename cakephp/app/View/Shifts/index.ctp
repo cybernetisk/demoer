@@ -1,11 +1,20 @@
 <h3>Skift</h3>
 <table>
+<tr>
+	<th>Tittel</th>
+	<th>Sted</th>
+	<th>Start</th>
+	<th>Stop</th>
+	<th>Varighet</th>
+	<th></th>
+</tr>
 <?php foreach($shifts as $shift): ?>
 <tr>
 	<td><?php echo $shift['ShiftType']['title'] ?></td>
 	<td><?php echo $shift['ShiftType']['location'] ?></td>
 	<td><?php echo $shift['Shift']['start'] ?></td>
 	<td><?php echo $shift['Shift']['stop'] ?></td>
+	<td><?php echo round((strtotime($shift['Shift']['stop']) - strtotime($shift['Shift']['start'])) / 3600) ?></td>
 	<td><?php echo $this->Html->link('Ta skift', '/shifts/take/' . $shift['Shift']['id']) ?></td>
 </tr>
 <?php endforeach; ?>

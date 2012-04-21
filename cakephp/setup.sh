@@ -1,2 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 chmod a+rw -R app/tmp
+
+

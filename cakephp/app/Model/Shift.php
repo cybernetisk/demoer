@@ -43,4 +43,6 @@ class Shift extends AppModel {
 	{
 		return $this->find('all', array('conditions'=>array('Shift.user_id'=>null)));
 	}
+	
+	
 }
