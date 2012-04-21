@@ -5,14 +5,14 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 # Ignore bundler config
-/.bundle
+/railsdemo/.bundle
 
 # Ignore the default SQLite database.
-/db/*.sqlite3
+/railsdemo/db/*.sqlite3
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
+/railsdemo/log/*.log
+/railsdemo/tmp
 
 # ignore finder files
 .DS_Store
