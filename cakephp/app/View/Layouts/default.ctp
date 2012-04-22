@@ -43,6 +43,12 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		</div>
 		<div id="content">
 
+		<div id="submenu" style="text-align:right;">
+<?php if($this->Session->check('Auth.User')): ?>
+	Hi <?php echo $this->Session->read('Auth.User.username') ?> - 
+	<?php echo $this->Html->link('Logout', '/users/logout') ?>
+<?php endif; ?>
+		</div>
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>

@@ -19,7 +19,7 @@ class UsersController extends AppController {
 		if($this->request->isPost() && $id = @$this->request->data['User']['user_id'])
 		{
 			$user = $this->User->findById($id);
-			$this->Auth->login($user);
+			$this->Auth->login($user['User']);
 			$this->redirect('/');
 		}
 		$users = $this->User->find('list');

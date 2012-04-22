@@ -49,4 +49,13 @@ class ShiftsController extends AppController {
 		// compact('shift') == array('shift'=>$shift) (en dictionary hvor shift peker på $shift - resultatet vi hentet)
 		$this->set(compact('shifts'));
 	}
+	
+	public function take($id)
+	{
+		$this->Shift->id = $id;
+		$this->Shift->read();
+		$this->Shift->saveField('user_id', $this->Auth->user('id'));
+
+		$this->redirect('/shifts/view/' . $id);
+	}
 }
