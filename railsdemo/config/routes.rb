@@ -3,6 +3,7 @@ Railsdemo::Application.routes.draw do
   # Default CRUD routes
   resources :shift_types
   resources :shifts
+  resources :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
