@@ -1,10 +1,18 @@
 Railsdemo::Application.routes.draw do
 
+  # Route
+  root :to => "users#new"
+
+  # Manual routes
+  get 'sign_up' => 'users#new', as: 'sign_up'
+  get "log_out" => "sessions#destroy", :as => "log_out"
+  get "log_in" => "sessions#new", :as => "log_in"
+
   # Default CRUD routes
   resources :shift_types
   resources :shifts
   resources :users
-
+  resources :sessions
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
