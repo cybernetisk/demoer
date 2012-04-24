@@ -1,12 +1,13 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  attr_accessible :username, :password, :password_confirmation
+  attr_accessible :username, :password, :password_confirmation, :admin
   attr_accessor :password
   before_save :encrypt_password
 
   has_many :shifts, dependent: :nullify, inverse_of: :user
   has_many :certifications, dependent: :destroy, inverse_of: :user
+  has_and_belongs_to_many :user_groups
 
   validates_confirmation_of :password
   validates_presence_of :password, :on => :create
@@ -27,5 +28,9 @@ class User < ActiveRecord::Base
       self.password_salt = BCrypt::Engine.generate_salt
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
+  end
+
+  def can_take_shift?(shift)
+    Certification.exists?(shift_type_id: shift.shift_type, user_group_id: user_groups)
   end
 end
