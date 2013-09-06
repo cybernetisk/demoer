@@ -1,0 +1,6 @@
+<h1>Oversikt over shift</h1>
+<ul>
+{% for elm in shifts_list %}
+    <li>{{ elm.title }} ({{ elm.shift_type.title }})</li>
+{% endfor %}
+</ul>
