@@ -33,4 +33,4 @@
 /django/*.sqlite
 
 # Ignore compiled stuff
-/django/*/*.pyc
+*.pyc
