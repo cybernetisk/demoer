@@ -23,3 +23,14 @@
 # Ignore swap files from e.g. vim
 *.swp
 
+
+
+####
+# Django
+#
+
+# Ignore the database
+/django/*.sqlite
+
+# Ignore compiled stuff
+/django/*/*.pyc
