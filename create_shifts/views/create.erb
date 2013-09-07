@@ -107,11 +107,14 @@ Date.prototype.nextSunday = function() {
   return new Date(d.setDate(diff));
 };
 
-jQuery.fn.datepicker = function(year, month, callback) {
+jQuery.fn.datepicker = function(year, month) {
   var $this = $(this);
 
   // Date to keep track of the current month of the datepicker
-  var d = new Date(year, month-1);
+  var d;
+  if (year && month) d = new Date(year, month);
+  else if (year) d = new Date(year);
+  else d = new Date();
 
   // Month names
   var months = ["januar","februar", "mars", "april", "mai", "juni",
@@ -244,7 +247,7 @@ jQuery.fn.datepicker = function(year, month, callback) {
     console.log("Click");
   });
 
-  $(".datepicker").datepicker(2013, 9).on("select", function(e, date) {
+  $(".datepicker").datepicker().on("select", function(e, date) {
     $(this).closest("section").css({height: "60px"});
     $(".datepicker").css({visibility: "hidden"});
     $(".selected-date").html(date.getDate() + ". "+months[date.getMonth()]+" "+date.getFullYear());

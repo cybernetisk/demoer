@@ -92,7 +92,8 @@ table.datepicker {
     background:rgba(18,18,18,1);
     padding:20px;
     color:darken(white, 40%);
-    overflow:scroll;
+    overflow-y:auto;
+    overflow-x:hidden;
 
     h2 {
         color:white;
