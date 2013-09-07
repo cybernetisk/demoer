@@ -1,0 +1,258 @@
+<div class="row">
+  <div class="large-6">
+    Hello world
+  </div>
+  <div class="large-6">
+    Foo? Bar!
+  </div>
+</div>
+<div class="open-button">
+  <svg width="20" height="20">
+    <g class="cross">
+      <rect x="9" y="0" width="2" height="20" />
+      <rect x="0" y="9" width="20" height="2" />
+    </g>
+  </svg>
+</div>
+<div class="popout">
+  <div class="content">
+    <section>
+      <h2>Ny barkveld</h2>
+      Opprett nye skift for en barkveld.
+    </section>
+    <section style="height:270px; overflow:hidden;">
+      <header class="row">
+        <span class="large-3">Dato</span>
+        <span class="large-9 selected-date hidden">13. september 2013</span>
+      </header>
+      <table class="datepicker">
+        <colgroup>
+          <col width="14.29%" />
+          <col width="14.29%" />
+          <col width="14.29%" />
+          <col width="14.29%" />
+          <col width="14.29%" />
+          <col width="14.29%" />
+          <col width="14.29%" />
+        </colgroup>
+        <tr>
+          <th class="prev">❮</th>
+          <th colspan="5">September 2013</th>
+          <th class="next">❯</th>
+        </tr>
+        <tr class="days">
+          <th>Man</th>
+          <th>Tir</th>
+          <th>Ons</th>
+          <th>Tor</th>
+          <th>Fre</th>
+          <th>Lør</th>
+          <th>Søn</th>
+        </tr>
+        <% for i in 0..5 do %>
+          <tr>
+            <% for j in 0..6 do %>
+              <% date = @start + 7*i + j %>
+              <td class="date" data-date="<%= date %>"><%= date.strftime("%e") %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    </section>
+    <section>
+      <header>
+        Skift
+      </header>
+      <div class="shift row">
+        <span class="large-8">1x Skjenkemester</span>
+        <span class="large-4 text-right time">17:00 - 03:00</span>
+      </div>
+      <div class="shift row">
+        <span class="large-8">2x Barfunk</span>
+        <span class="large-4 text-right time">17:30 - 22:00</span>
+      </div>
+      <div class="add-shift">
+        + legg til et skift
+      </div>
+    </section>
+    <section>
+      <header>
+        Kommentar
+      </header>
+      <textarea></textarea>
+    </section>
+    <section>
+      <header>
+        Utlån
+      </header>
+      Checkbox for om dette er et utlån?
+    </section>
+    <section>
+      <button id="save-night">Lagre</button>
+    </section>
+  </div>
+</div>
+<script type="text/javascript">
+Date.prototype.prevMonday = function() {
+  var d = new Date(this);
+  var day = d.getDay();
+  var diff = d.getDate() - day + (day == 0 ? -6 : 1);
+  return new Date(d.setDate(diff));
+};
+
+Date.prototype.nextSunday = function() {
+  var d = new Date(this);
+  var day = d.getDay();
+  var diff = d.getDate() + 7 - (day == 0 ? 7 : day);
+  return new Date(d.setDate(diff));
+};
+
+jQuery.fn.datepicker = function(year, month, callback) {
+  var $this = $(this);
+
+  // Date to keep track of the current month of the datepicker
+  var d = new Date(year, month-1);
+
+  // Month names
+  var months = ["januar","februar", "mars", "april", "mai", "juni",
+    "juli", "august", "september", "oktober", "november", "desember"];
+
+  // The table to fill in
+  var $table = $(this);
+  $table.html("");
+
+  function addCallback($el, date) {
+    var d = new Date(date);
+    $el.click(function() {
+      //if (callback) callback.call($table, d);
+      $this.trigger("select", d);
+    });
+  }
+
+  function setMonth(date, $body) {
+    // Reset body
+    $body.html("");
+
+    // Start of the month
+    var d0 = new Date(date);
+
+    // End of the month
+    var d1 = new Date(d0);
+    d1.setMonth(d1.getMonth()+1);
+
+    // First and last day of preview
+    var start = d0.prevMonday();
+    var end = d1.nextSunday();
+
+    // Add dates
+    while(start <= end) {
+      var $row = $("<tr></tr>");
+
+      for(var i = 0; i < 7; i++) {
+        var $td = $("<td>"+start.getDate()+"</td>");
+        addCallback($td, start);
+        $row.append($td);
+        start.setDate(start.getDate()+1);
+      }
+      $table.append($row);
+    }
+
+    $this.trigger("resize");
+  }
+
+  // Add cols
+  var $cols = $("<colgroup></colgroup>");
+  for (var i = 0; i < 7; i++) {
+    $cols.append('<col style="width:14.29%;" />');
+  }
+  $table.append($cols);
+
+  // Add head
+  var $head = $("<thead></thead>");
+  $table.append($head);
+
+  // Add body
+  var $body = $("<tbody></tbody>");
+  $table.append($body);
+
+  // Add the month row
+  var $row = $("<tr></tr>");
+  var $month = $('<th colspan="5">'+months[d.getMonth()]+' '+d.getFullYear()+'</th>');
+  var $prev = $('<th class="prev">❮</th>');
+  $prev.click(function() {
+    d.setMonth(d.getMonth()-1);
+    setMonth(d, $body);
+    $month.html(months[d.getMonth()]+' '+d.getFullYear());
+  });
+  var $next = $('<th class="next">❯</th>');
+  $next.click(function() {
+    d.setMonth(d.getMonth()+1);
+    setMonth(d, $body);
+    $month.html(months[d.getMonth()]+' '+d.getFullYear());
+  });
+  $row.append($prev);
+  $row.append($month);
+  $row.append($next);
+  $head.append($row);
+
+  // Add the day row
+  $row = $('<tr class="days"></tr>');
+  $row.append("<th>Man</th>");
+  $row.append("<th>Tir</th>");
+  $row.append("<th>Ons</th>");
+  $row.append("<th>Tor</th>");
+  $row.append("<th>Fre</th>");
+  $row.append("<th>Lør</th>");
+  $row.append("<th>Søn</th>");
+  $head.append($row);
+
+
+  setMonth(d, $body);
+
+  return this;
+};
+
+(function datepicker() {
+  var months = ["januar","februar", "mars", "april", "mai", "juni",
+    "juli", "august", "september", "oktober", "november", "desember"];
+  var $panel = $(".popout");
+
+  $(".datepicker .date").click(function() {
+    var date = new Date($(this).data("date"));
+
+  });
+
+  $(".selected-date").click(function() {
+    $(this).closest("section").css({height: 73+$(".datepicker").height()});
+    $(".datepicker").css({visibility: "visible"});
+    $(this).addClass("hidden");
+  });
+
+  $(".open-button").click(function() {
+    if ($panel.data("open")) {
+      $panel.css({right:-300});
+      $(this).css({right:10});
+      $panel.data("open", false);
+    } else {
+      $(".popout").css({right:0});
+      $(this).css({right:310});
+      $panel.data("open", true);
+    }
+  });
+
+  $("#save-night").click(function() {
+    console.log("Click");
+  });
+
+  $(".datepicker").datepicker(2013, 9).on("select", function(e, date) {
+    $(this).closest("section").css({height: "60px"});
+    $(".datepicker").css({visibility: "hidden"});
+    $(".selected-date").html(date.getDate() + ". "+months[date.getMonth()]+" "+date.getFullYear());
+    $(".selected-date").removeClass("hidden");
+    $(".selected-date").data("date", date);
+  }).on("resize", function(e, height) {
+    $(this).closest("section").css({height: 73+$(this).height()});
+  });
+})();
+
+</script>
