@@ -81,6 +81,38 @@ table.datepicker {
     }
 }
 
+#side-menu {
+    position:absolute;
+    top:10px;
+    right:10px;
+
+    svg {
+        @include transition(all 0.3s ease-in-out);
+
+        position:absolute;
+        right:10px;
+        cursor:pointer;
+    }
+
+    #menu-button {
+        &.open {
+            @include transform(rotate(45deg));
+        }
+
+        top:10px;
+    }
+
+    #bar-button {
+        top:50px;
+        right:-40px;
+    }
+
+    #coffee-button {
+        top:88px;
+        right:-40px;
+    }
+}
+
 .popout {
     @include transition (all 0.3s ease-in-out);
 
@@ -94,6 +126,15 @@ table.datepicker {
     color:darken(white, 40%);
     overflow-y:auto;
     overflow-x:hidden;
+
+    .close-button {
+        @include transform(rotate(45deg));
+
+        position:absolute;
+        top:26px;
+        right:20px;
+        cursor:pointer;
+    }
 
     h2 {
         color:white;
@@ -166,13 +207,4 @@ table.datepicker {
             padding-bottom:0;
         }
     }
-}
-
-.open-button {
-    @include transition(all 0.3s ease-in-out);
-
-    position:absolute;
-    top:10px;
-    right:10px;
-    cursor:pointer;
 }
