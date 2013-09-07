@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'shifty_site.views.home', name='home'),
+    url(r'^$',  include('shifty_shifts.urls')),
     # url(r'^shifty_site/', include('shifty_site.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
