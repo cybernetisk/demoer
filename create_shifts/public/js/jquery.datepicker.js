@@ -14,6 +14,17 @@ Date.prototype.nextSunday = function() {
   return new Date(d.setDate(diff));
 };
 
+Date.prototype.today = function() {
+    var d = new Date();
+    return this.getDate() == d.getDate() &&
+        this.getMonth() == d.getMonth() &&
+        this.getFullYear() == d.getFullYear();
+};
+
+// Month names
+window.months = ["januar","februar", "mars", "april", "mai", "juni",
+    "juli", "august", "september", "oktober", "november", "desember"];
+
 $.fn.datepicker = function(year, month) {
   var $this = $(this);
 
@@ -22,10 +33,6 @@ $.fn.datepicker = function(year, month) {
   if (year && month) d = new Date(year, month);
   else if (year) d = new Date(year);
   else d = new Date();
-
-  // Month names
-  var months = ["januar","februar", "mars", "april", "mai", "juni",
-    "juli", "august", "september", "oktober", "november", "desember"];
 
   // The table to fill in
   var $table = $(this);
@@ -64,6 +71,9 @@ $.fn.datepicker = function(year, month) {
 
       for(var i = 0; i < 7; i++) {
         var $td = $("<td>"+start.getDate()+"</td>");
+        if (start.today()) {
+            $td.addClass("today");
+        }
         addCallback($td, start);
         $row.append($td);
         start.setDate(start.getDate()+1);

@@ -24,6 +24,16 @@ h2 {
     text-align:right;
 }
 
+.text-center {
+    text-align:center;
+}
+
+span {
+    &.text-right {
+        text-align:right;
+    }
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -47,6 +57,8 @@ table {
 }
 
 table.datepicker {
+    @include transition (all 0.3s ease-in-out);
+
     width:100%;
     font-family:Helvetica, Arial, sans-serif;
     text-align:center;
@@ -59,6 +71,10 @@ table.datepicker {
     td {
         line-height:24px;
         cursor:pointer;
+
+        &.today {
+            color:darken(white, 20%);
+        }
 
         &:hover {
             color:white;
@@ -81,35 +97,49 @@ table.datepicker {
     }
 }
 
-#side-menu {
+#admin-menu {
     position:absolute;
-    top:10px;
-    right:10px;
+    overflow:hidden;
+    top:0;
+    right:0;
+    width:60px;
+    height:180px;
 
     svg {
         @include transition(all 0.3s ease-in-out);
 
         position:absolute;
-        right:10px;
+        right:20px;
         cursor:pointer;
     }
 
-    #menu-button {
+    svg.toggle-button {
         &.open {
             @include transform(rotate(45deg));
         }
 
-        top:10px;
+        top:20px;
     }
 
-    #bar-button {
-        top:50px;
-        right:-40px;
-    }
+    .menu-items {
+        @include transition(all 0.3s ease-in-out);
 
-    #coffee-button {
-        top:88px;
-        right:-40px;
+        position:absolute;
+        top:60px;
+        right:-60px;
+        overflow:hidden;
+        height:120px;
+        width:60px;
+
+        svg.bar-button {
+            top:20px;
+            right:20px;
+        }
+
+        svg.coffee-button {
+            top:60px;
+            right:20px;
+        }
     }
 }
 
@@ -157,6 +187,17 @@ table.datepicker {
                 color:darken(white, 40%);
                 cursor:pointer;
             }
+
+            span {
+                a {
+                    color:darken(white, 40%);
+                    text-decoration:none;
+                }
+            }
+
+            &:last-child {
+                margin-bottom:0;
+            }
         }
 
         .shift {
@@ -170,9 +211,31 @@ table.datepicker {
             }
         }
 
-        .add-shift {
+        .add-shift-box {
             margin-top:10px;
-            cursor:pointer;
+            padding:5px;
+            background:lighten(black, 20%);
+
+            input[type=text] {
+                width:100%;
+                background:rgba(18,18,18,1);
+                padding:5px;
+                color:darken(white, 40%);
+                border:1px solid transparent;
+                font-size:12px;
+
+                &:focus {
+                    outline:none;
+                }
+
+                &:invalid {
+                    border-color:red;
+                }
+
+                &:focus {
+                    border-color:lighten(black, 40%);
+                }
+            }
         }
 
         textarea {
@@ -196,6 +259,11 @@ table.datepicker {
             padding:6px 10px;
             font-size:12px;
             cursor:pointer;
+
+            &.expand {
+                width:100%;
+                padding:6px 0;
+            }
         }
 
         &:first-of-type {

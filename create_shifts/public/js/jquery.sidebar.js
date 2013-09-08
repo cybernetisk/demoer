@@ -1,18 +1,10 @@
-(function($) {
-    $.fn.popout.defaults = {
-        width: 300
-    };
-
-    $.fn.popout = function(action) {
-        var $this = $(this);
-
-        if (action == "open") {
-            $this.css({right:0});
-        } else if (action == "close") {
-            $this.css({right:-width});
-        }
-
-        // Return this for chaining
-        return this;
-    };
-})(jQuery);
+var Popout = Backbone.View.extend({
+    el: $('<div id="popout" class="popout"></div>'),
+    // template which has the placeholder 'who' to be substitute later 
+    initialize: function(){
+        $(document).append(this.el);
+    },
+    render: function(){
+        this.$el.html();
+    }
+});
